@@ -4,8 +4,9 @@ import './App.css';
 
 // import Navigation from './components/Navigation';
 
-import { todos } from './todos.json'
+import { todos } from './todos.json';
 
+import TodoForm from './components/TodoForm';
 
 class App extends Component {
 
@@ -19,6 +20,8 @@ class App extends Component {
   render() {
   const todos = this.state.todos.map((todo, i) =>{
       return(
+
+
 
         <div className="col-md-4">
             <div className="card mt-3">
@@ -58,7 +61,7 @@ class App extends Component {
               </div> 
             </div>
               
-
+              <TodoForm/>
           <img src={logo} className="App-logo" alt="logo" />
          
         </header>
