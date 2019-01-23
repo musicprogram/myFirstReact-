@@ -10,18 +10,39 @@ class TodoForm extends Component {
 			description: '',
 			priority: 'low'
 		};
+		this.handleInputChange = this.handleInputChange.bind(this); 
+		// para poder llamar el componente con this y que sea del propio componente
+		this.handleSubmit = this.handleSubmit.bind(this); // para poder llamarlo
+
 	}
+
+	handleInputChange(e){ //se ejecuta cada vez que hay un cambio en el input
+		const {value,name} = e.target;
+		this.setState({ // metodo para modificar los datos
+			[name]: value
+		})
+
+		// console.log(this.state) // cambia el estado dcuando se le agregan las palbras
+	}	
+
+
+handleSubmit(e){ //cada vez que se le de enviar al formulario se ejecuta este metodo 
+ e.preventDefault(); // evita que se recargue la página
+ this.props.onAddTodo(this.state) //actualizar el estado 
+ // console.log(this.state)
+
+}
+
 
 	render() {
 		return(
 			<div className="card">
-        <form className="card-body">
+        <form className="card-body" onSubmit={ this.handleSubmit }>
           <div className="form-group">
             <input
               type="text"
               name="title"
               className="form-control"
-              value={this.state.title}
               onChange={this.handleInputChange}
               placeholder="Title"
               />
@@ -31,7 +52,6 @@ class TodoForm extends Component {
               type="text"
               name="responsible"
               className="form-control"
-              value={this.state.responsible}
               onChange={this.handleInputChange}
               placeholder="Responsible"
               />
@@ -41,7 +61,6 @@ class TodoForm extends Component {
               type="text"
               name="description"
               className="form-control"
-              value={this.state.description}
               onChange={this.handleInputChange}
               placeholder="Description"
               />
@@ -50,7 +69,6 @@ class TodoForm extends Component {
             <select
                 name="priority"
                 className="form-control"
-                value={this.state.priority}
                 onChange={this.handleInputChange}
               >
               <option>low</option>

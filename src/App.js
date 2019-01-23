@@ -15,10 +15,24 @@ class App extends Component {
     this.state = {
       todos
     }
+    this.handleAddTodo = this.handleAddTodo.bind(this) // para no perder scope de este metodo
+
   }
+
+
+  //  metodo para agregar tareas a todos.json
+
+  handleAddTodo(todo){ // recibimos una tarea se actualiza el estado de la app
+    this.setState({
+      todos: [...this.state.todos, todo] // agregar una nueva tarea al estado de las tareas
+    })// al TodoForm se le pasa esta funcion con el metodo de la etiqueta onAddTodo
+  }
+
+
 
   render() {
   const todos = this.state.todos.map((todo, i) =>{
+    // esto se ejecuta antes de mostrarlo 
       return(
 
 
@@ -55,13 +69,22 @@ class App extends Component {
               </a>
             </nav>
 
-            <div className="container">
-              <div className="row mt-3">
-                { todos }  
-              </div> 
-            </div>
+
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-4 mt-3">
+                     <TodoForm onAddTodo={this.handleAddTodo}/> {/* onAddTodo actualizar el estado con el metdo sumit handleSubmit */}
+                  </div>
+                  <div className="col-md-8 mt-3">
+                    <div className="row">
+                      { todos }  
+                    </div>                    
+                  </div>
+                </div>
+              </div>
+
               
-              <TodoForm/>
+              
           <img src={logo} className="App-logo" alt="logo" />
          
         </header>
