@@ -16,7 +16,7 @@ class App extends Component {
       todos
     }
     this.handleAddTodo = this.handleAddTodo.bind(this) // para no perder scope de este metodo
-
+    // this.removeTodo = this.removeTodo.bind(this)
   }
 
 
@@ -29,6 +29,24 @@ class App extends Component {
   }
 
 
+  removeTodo(index){ 
+    //confirm devuelve true o false // evento propio del navegador asi react se da cuenta window.confirm
+    if(window.confirm('Are you sure, you want to delete it?')){
+
+      //esta recibiendo el indice de cada tarea con el btn submit onClick
+      this.setState({ // eliminar
+        todos: this.state.todos.filter((todo, i) =>{
+          return i !== index //si la tarea es distinta al indice la devuelve
+        }) //genera un nuevo arreglo si ciertos tipos de datos cumplena una condición
+        //si el indice es encontrado en el arreglo lo elimina
+      })
+      //console.log(index)
+
+    }
+
+  
+  }
+
 
   render() {
   const todos = this.state.todos.map((todo, i) =>{
@@ -37,7 +55,7 @@ class App extends Component {
 
 
 
-        <div className="col-md-4">
+        <div className="col-md-4" key={i}>
             <div className="card mt-3">
 
               <div className="card-header">
@@ -49,6 +67,16 @@ class App extends Component {
               <div className="card-body">
                 <p>{ todo.description }</p>
                 <p><mark> { todo.responsible } </mark></p>
+              </div>
+              <div className="card-footer">
+
+                <button 
+                className="btn btn-danger"
+                onClick={this.removeTodo.bind(this, i)}
+                >
+                  Delete
+                </button>
+              
               </div>
             </div>
         </div>
